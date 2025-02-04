@@ -1,5 +1,5 @@
 <template>
-  <template v-if="passphraseStore.isValidated">
+  <template v-if="!passphraseStore.isValidated">
     <q-dialog v-model="hasNoAccess" persistent transition-show="scale" transition-hide="scale">
       <q-card>
         <q-card-section

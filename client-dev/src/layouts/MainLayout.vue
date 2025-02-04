@@ -9,7 +9,7 @@
           <top-middle-bottom-layout>
             <template #header>
               <q-toolbar flat>
-                <q-toolbar-title class="text-h6">Welcome to the AI Demo</q-toolbar-title>
+                <p class="text-h6">Welcome to the ShowcaseAI</p>
                 <q-space />
                 <server-activity />
               </q-toolbar>
@@ -56,7 +56,6 @@
                   clearable
                   :type="isPassphraseHidden ? 'password' : 'text'"
                   label="Enter the case-sensitive access passphrase provided by SKGadi"
-                  hint="Wrong passphrase? Contact GadiSureshKumar@gmail.com"
                   @keyup.enter="validatePassphrase"
                   autofocus
                 >
@@ -85,6 +84,9 @@
                     </q-btn>
                   </template>
                 </q-input>
+                <div class="text-caption">
+                  Wrong passphrase? <a href="mailto:gadisureshkumar@gmail.com">[Contact SKGadi]</a>
+                </div>
               </div>
             </template>
           </top-middle-bottom-layout>

@@ -15,8 +15,8 @@ class SocketioService {
   }
 
   setupSocketConnection(): void {
-    //const isProduction = process.env.NODE_ENV === 'production';
-    const socketIOPort = 443 //isProduction ? 443 : 3000;
+    const isProduction = process.env.NODE_ENV === 'production'
+    const socketIOPort = isProduction ? 443 : 3000
     this.socket = io(`wss://switchgear.sigrama.com.mx:${socketIOPort}`, {
       transports: ['websocket'],
       autoConnect: true,

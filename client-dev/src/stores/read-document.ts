@@ -38,7 +38,7 @@ export const useReadDocumentStore = defineStore('readDocumentStore', {
   actions: {
     sendDocumentToServer(document: CL_PL_AI_SEND_DOCUMENT) {
       const socketStore = useSocketStore()
-      socketStore.emit('read-document-send-document', document)
+      socketStore.emit('skgadi-ai-read-document-send-document', document)
       this.sendingDocument = true
       this.waitingForDocumentResponse = true
     },
@@ -51,7 +51,7 @@ export const useReadDocumentStore = defineStore('readDocumentStore', {
     },
     requestDocumentSummary(prompt: string) {
       const socketStore = useSocketStore()
-      socketStore.emit('read-document-get-summary', prompt)
+      socketStore.emit('skgadi-ai-read-document-get-summary', prompt)
       this.requestingSummary = true
       this.waitingForSummaryResponse = true
     },
@@ -64,7 +64,7 @@ export const useReadDocumentStore = defineStore('readDocumentStore', {
     },
     sendChatMessageToServer(message: string) {
       const socketStore = useSocketStore()
-      socketStore.emit('read-document-send-chat-message', message)
+      socketStore.emit('skgadi-ai-read-document-send-chat-message', message)
       this.sendingChatMessage = true
       this.waitingForChatResponse = true
     },
@@ -78,18 +78,18 @@ export const useReadDocumentStore = defineStore('readDocumentStore', {
     },
     getHistoryFromServer() {
       const socketStore = useSocketStore()
-      socketStore.emit('read-document-get-history')
+      socketStore.emit('skgadi-ai-read-document-get-history')
     },
     setState(state: READ_DOCUMENT_STATE) {
       this.state = state
     },
     requestEraseChat() {
       const socketStore = useSocketStore()
-      socketStore.emit('read-document-erase-chat')
+      socketStore.emit('skgadi-ai-read-document-erase-chat')
     },
     requestEraseDocumentState() {
       const socketStore = useSocketStore()
-      socketStore.emit('read-document-erase-document-state')
+      socketStore.emit('skgadi-ai-read-document-erase-document-state')
     },
   },
 })

@@ -12,6 +12,9 @@
     "test": "echo \"No test specified\" && exit 0",
     "dev": "quasar dev",
     "build": "quasar build",
+    "remove-docs": "rm -rf ../docs",
+    "copy-docs": "cp -r dist/spa ../docs",
+    "build-all": "npm run build && npm run remove-docs && npm run copy-docs",
     "postinstall": "quasar prepare",
     "temp": "quasar new store socket"
   },

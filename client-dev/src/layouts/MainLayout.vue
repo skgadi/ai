@@ -1,5 +1,5 @@
 <template>
-  <template v-if="!passphraseStore.isValidated">
+  <template v-if="passphraseStore.isValidated">
     <q-dialog v-model="hasNoAccess" persistent transition-show="scale" transition-hide="scale">
       <q-card>
         <q-card-section
@@ -132,11 +132,11 @@
                   aria-label="Menu"
                   @click="toggleLeftDrawer"
                 />
-                <q-avatar class="q-ml-xl cursor-pointer">
+                <q-avatar class="q-ml-xl">
                   <img src="/src/assets/logo.png" />
                 </q-avatar>
                 <div class="text-h5 q-ml-md cursor-pointer" @click="router.push('/')">
-                  AI - Demo by SKGadi
+                  ShowcaseAI
                 </div>
 
                 <q-space />
@@ -196,16 +196,16 @@ const linksList: EssentialLinkProps[] = [
   {
     title: 'AI chat',
     caption: 'General chatbot to answer your queries',
-    icon: 'mdi-chat-outline',
+    icon: 'mdi-robot-outline',
     link: '/ai-chat',
   },
   {
     title: 'Read document',
     caption: 'Reads the PDF document to prvide insights',
     icon: 'mdi-file-document-outline',
-    link: '/read-document',
+    link: '/document-intelligence',
   },
-  {
+  /*{
     title: 'GitHub repository',
     caption: 'Prepares a beief summary about your favorite GitHub repository',
     icon: 'mdi-github',
@@ -216,10 +216,10 @@ const linksList: EssentialLinkProps[] = [
     caption: 'Allows to upload zipped code for documentation',
     icon: 'mdi-folder-zip-outline',
     link: '/doc-for-zipped-code',
-  },
+  },*/
 ]
 
-const hasNoAccess = true
+const hasNoAccess = ref(true)
 const leftDrawerOpen = ref(false)
 
 function toggleLeftDrawer() {
@@ -229,7 +229,7 @@ function toggleLeftDrawer() {
 const passphrase = ref('')
 
 function validatePassphrase() {
-  socketStore.emit('passphrase-validate', passphrase.value)
+  socketStore.emit('skgadi-ai-passphrase-validate', passphrase.value)
 }
 
 const isPassphraseHidden = ref(true)

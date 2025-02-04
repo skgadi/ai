@@ -28,7 +28,7 @@ export const useAiChatStore = defineStore('aiChatStore', {
     },
     sendMessageToServer(message: string) {
       const socketStore = useSocketStore()
-      socketStore.emit('ai-chat-send-message', message)
+      socketStore.emit('skgadi-ai-ai-chat-send-message', message)
       this.sendingMessage = true
       this.waitingForResponse = true
     },
@@ -38,14 +38,14 @@ export const useAiChatStore = defineStore('aiChatStore', {
     },
     getHistoryFromServer() {
       const socketStore = useSocketStore()
-      socketStore.emit('ai-chat-get-history')
+      socketStore.emit('skgadi-ai-ai-chat-get-history')
     },
     setChatState(chatState: AI_CHAT_STATE) {
       this.chatState = chatState
     },
     requestEraseChatState() {
       const socketStore = useSocketStore()
-      socketStore.emit('ai-chat-erase-history')
+      socketStore.emit('skgadi-ai-ai-chat-erase-history')
     },
   },
 })

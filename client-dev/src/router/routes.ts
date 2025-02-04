@@ -15,7 +15,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import('pages/AiChat.vue'),
       },
       {
-        path: '/read-document',
+        path: '/document-intelligence',
         component: () => import('pages/ReadDocument.vue'),
       },
       {

@@ -1,43 +1,36 @@
 <template>
-  <q-page class="row items-center justify-evenly">
-    <example-component
-      title="Example component"
-      active
-      :todos="todos"
-      :meta="meta"
-    ></example-component>
-  </q-page>
+  <div style="height: 100%; position: relative">
+    <div class="absolute-center full-width">
+      <div class="row justify-evenly">
+        <div class="col-4 text-center">
+          <q-btn
+            rounded
+            stack
+            no-caps
+            flat
+            to="/ai-chat"
+            style="min-width: 200px; min-height: 125px"
+          >
+            <q-icon name="mdi-robot-outline" size="64px" />
+            <q-space />
+            <q-btn-label>AI Chat</q-btn-label>
+          </q-btn>
+        </div>
+        <div class="col-4 text-center">
+          <q-btn
+            rounded
+            stack
+            no-caps
+            flat
+            to="/document-intelligence"
+            style="min-width: 200px; min-height: 125px"
+          >
+            <q-icon name="mdi-file-document-outline" size="64px" />
+            <q-space />
+            <q-btn-label>Document<br />Intelligence</q-btn-label>
+          </q-btn>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue';
-import type { Todo, Meta } from 'components/models';
-import ExampleComponent from 'components/ExampleComponent.vue';
-
-const todos = ref<Todo[]>([
-  {
-    id: 1,
-    content: 'ct1'
-  },
-  {
-    id: 2,
-    content: 'ct2'
-  },
-  {
-    id: 3,
-    content: 'ct3'
-  },
-  {
-    id: 4,
-    content: 'ct4'
-  },
-  {
-    id: 5,
-    content: 'ct5'
-  }
-]);
-
-const meta = ref<Meta>({
-  totalCount: 1200
-});
-</script>

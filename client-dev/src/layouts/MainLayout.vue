@@ -133,7 +133,7 @@
                   @click="toggleLeftDrawer"
                 />
                 <q-avatar class="q-ml-xl">
-                  <img src="/src/assets/logo.png" />
+                  <img src="~assets/logo.png" />
                 </q-avatar>
                 <div class="text-h5 q-ml-md cursor-pointer" @click="router.push('/')">
                   ShowcaseAI

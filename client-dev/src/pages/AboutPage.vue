@@ -17,7 +17,7 @@
       </q-item-section>
       <q-item-section side>
         <q-avatar>
-          <img src="/src/assets/logo.png" />
+          <img src="~assets/logo.png" />
         </q-avatar>
       </q-item-section>
     </q-item>

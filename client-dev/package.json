@@ -14,7 +14,7 @@
     "build": "quasar build",
     "remove-docs": "rm -rf ../docs",
     "copy-docs": "cp -r dist/spa ../docs",
-    "build-all": "npm run build && npm run remove-docs && npm run copy-docs",
+    "build-all": "yarn run build && yarn run remove-docs && yarn run copy-docs",
     "postinstall": "quasar prepare",
     "temp": "quasar new store socket"
   },

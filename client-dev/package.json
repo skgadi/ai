@@ -1,8 +1,8 @@
 {
   "name": "ai-client",
   "version": "0.0.1",
-  "description": "AI client",
-  "productName": "SKGadi's AI Client",
+  "description": "AI client designed for Showcasing AI capabilities",
+  "productName": "ShowcaseAi - SKGadi",
   "author": "Suresh Kumar Gadi",
   "type": "module",
   "private": true,

@@ -58,8 +58,16 @@
                                 icon="add"
                                 @click="newSummaryDialog = true"
                                 :disable="disableAddSummary"
+                                :loading="disableAddSummary"
                               >
-                                <q-tooltip>Create a new summary</q-tooltip>
+                                <template v-slot:loading>
+                                  <q-spinner-gears />
+                                </template>
+                                <q-tooltip>{{
+                                  disableAddSummary
+                                    ? 'Creating summary. Please wait ...'
+                                    : 'Create a new summary'
+                                }}</q-tooltip>
                               </q-btn>
                             </template>
                           </q-select>
@@ -72,10 +80,19 @@
                           icon="add"
                           class="full-width"
                           label="Create a new summary"
+                          :loading="disableAddSummary"
                           @click="newSummaryDialog = true"
                           :disable="disableAddSummary"
                         >
-                          <q-tooltip>Create a new summary</q-tooltip>
+                          <template v-slot:loading>
+                            <q-spinner-hourglass class="on-left" />
+                            Creating summary. Please wait ...
+                          </template>
+                          <q-tooltip>{{
+                            disableAddSummary
+                              ? 'Creating summary. Please wait ...'
+                              : 'Create a new summary'
+                          }}</q-tooltip>
                         </q-btn>
                       </template>
                     </template>
@@ -222,7 +239,7 @@
 import TopMiddleBottomLayout from 'src/components/Generic/TopMiddleBottomLayout.vue'
 import ChatArea from 'src/components/Chat/ChatArea.vue'
 
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useReadDocumentStore } from 'src/stores/read-document'
 import type { CL_PL_AI_SEND_DOCUMENT } from 'src/services/library/common/types-client'
 import { formatBytes } from 'src/services/library/gen'
@@ -264,9 +281,21 @@ const eraseDocumentDialog = ref(false)
 
 onMounted(() => {
   readDocumentStore.getHistoryFromServer()
+  selectLatestSummary()
 })
 
 const disableAddSummary = computed(() => {
   return readDocumentStore.requestingSummary || readDocumentStore.waitingForSummaryResponse
 })
+
+const selectLatestSummary = () => {
+  summaryModel.value = readDocumentStore.getState.documentSummary.length - 1
+}
+
+watch(
+  () => readDocumentStore.getState.documentSummary.length,
+  () => {
+    selectLatestSummary()
+  },
+)
 </script>

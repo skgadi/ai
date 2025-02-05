@@ -202,7 +202,7 @@ const linksList: EssentialLinkProps[] = [
     link: '/ai-chat',
   },
   {
-    title: 'Read document',
+    title: 'Document intelligence',
     caption: 'Reads the PDF document to prvide insights',
     icon: 'mdi-file-document-outline',
     link: '/document-intelligence',

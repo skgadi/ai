@@ -30,6 +30,7 @@ class SocketioService {
     })
 
     this.socket.on('disconnect', () => {
+      useSocketStore().disconnected()
       notify('Disconnected', 'Disconnected from the server', 'negative')
     })
 

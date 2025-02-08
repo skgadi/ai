@@ -83,6 +83,7 @@
                           :loading="disableAddSummary"
                           @click="newSummaryDialog = true"
                           :disable="disableAddSummary"
+                          no-caps
                         >
                           <template v-slot:loading>
                             <q-spinner-hourglass class="on-left" />
@@ -104,9 +105,8 @@
                               <template #body>
                                 <div
                                   v-html="
-                                    marked.parse(
-                                      readDocumentStore.getState.documentSummary[summaryModel]
-                                        ?.text || '',
+                                    getHtml(
+                                      readDocumentStore.getState.documentSummary[summaryModel],
                                     )
                                   "
                                 />
@@ -152,6 +152,7 @@
             label="Selected a PDF to analyze its content (max 10MB)"
             stack-label
             :disable="readDocumentStore.getsendingDocument"
+            clearable
           >
             <template v-slot:prepend>
               <q-icon name="mdi-file-document-outline" />
@@ -163,8 +164,12 @@
                 icon="mdi-send-check-outline"
                 aria-label="Info"
                 :disable="!inFile || readDocumentStore.getsendingDocument"
+                :loading="readDocumentStore.getsendingDocument"
                 @click="sendDocumentToServer"
               >
+                <template v-slot:loading>
+                  <q-spinner-facebook />
+                </template>
                 <q-tooltip>Send PDF to server</q-tooltip>
               </q-btn>
             </template>
@@ -244,6 +249,7 @@ import { useReadDocumentStore } from 'src/stores/read-document'
 import type { CL_PL_AI_SEND_DOCUMENT } from 'src/services/library/common/types-client'
 import { formatBytes } from 'src/services/library/gen'
 import { marked } from 'marked'
+import type { DOCUMENT_SUMMARY_ELEMENT } from 'src/services/library/common/types-content'
 
 const readDocumentStore = useReadDocumentStore()
 
@@ -269,7 +275,7 @@ const summaryModel = ref(0)
 const summaryOptions = computed(() => {
   return readDocumentStore.getState.documentSummary.map((s, i) => ({
     value: `Summary ${i + 1}`,
-    label: `[Summary ${i + 1}]: ${s.prompt || '<empty prompt>'}`,
+    label: `[Summary ${i + 1}]: ${s.prompt || '<empty prompt>'}`.slice(0, 50), // Limit to 50 characters
     id: i,
   }))
 })
@@ -298,4 +304,16 @@ watch(
     selectLatestSummary()
   },
 )
+
+const getHtml = (docIn: DOCUMENT_SUMMARY_ELEMENT | undefined) => {
+  if (!docIn) {
+    return ''
+  }
+
+  const prompt =
+    docIn.prompt.trim() && docIn.prompt.trim() !== '' ? docIn.prompt.trim() : 'No prompt provided.'
+  const promptHtml = `##### Prompt:\n${prompt}`
+  const text = `##### Response:\n${docIn.text}`
+  return marked.parse(promptHtml + '\n\n' + text)
+}
 </script>

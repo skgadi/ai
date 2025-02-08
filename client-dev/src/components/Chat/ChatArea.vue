@@ -46,7 +46,7 @@
               (e: KeyboardEvent) => {
                 if (isEnterEnabled) {
                   if (e.key === 'Enter') {
-                    if (e.altKey) {
+                    if (e.altKey || e.ctrlKey || e.shiftKey) {
                       message += '\n'
                       return
                     }
@@ -55,7 +55,7 @@
                 }
               }
             "
-            placeholder="Prepare your prompt here. You can use md."
+            :placeholder="placeholder"
             rounded
             outlined
             clearable
@@ -74,6 +74,9 @@
                 @click="isEnterEnabled = !isEnterEnabled"
                 :disable="blockSendingNewMessages"
               >
+                <template v-slot:loading>
+                  <q-spinner-facebook />
+                </template>
                 <q-tooltip>{{
                   isEnterEnabled
                     ? 'You can press enter to send your message'
@@ -93,7 +96,7 @@
               color="primary"
               aria-label="Info"
               @click="sendMessage"
-              :disable="blockSendingNewMessages"
+              :loading="blockSendingNewMessages"
             >
               <q-tooltip>Send</q-tooltip>
             </q-btn>
@@ -151,11 +154,19 @@ defineProps({
 })
 
 const emit = defineEmits(['sendMessage', 'requestEraseChatState'])
+const placeholder = ref('Prepare your prompt here. You can use md.')
 
 const message = ref('')
 const sendMessage = () => {
-  emit('sendMessage', message.value)
+  const messageToSend = message.value.trim()
   message.value = ''
+  if (messageToSend === '' || messageToSend === null || messageToSend === undefined) {
+    placeholder.value =
+      'Please provide me with the context or question. I need something to respond to!'
+    return
+  }
+  placeholder.value = 'Prepare your prompt here. You can use md.'
+  emit('sendMessage', messageToSend)
 }
 
 const isEnterEnabled = ref(true)
